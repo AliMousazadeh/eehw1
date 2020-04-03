@@ -35,4 +35,8 @@ app.put("/gis/addpolygon", (req, res) => {
     }
 })
 
+app.use((req, res) => {
+    res.send("welcome");
+})
+
 app.listen(port, () => console.log(`listening on port ${port}`));
