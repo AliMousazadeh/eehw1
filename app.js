@@ -25,6 +25,7 @@ app.get("/gis/testpoint/:lat/:long", (req, res) => {
     }
 })
 
+
 app.put("/gis/addpolygon", (req, res) => {
     try {
         feature = req.body;
