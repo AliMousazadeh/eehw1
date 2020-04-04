@@ -27,19 +27,54 @@ app.get("/gis/testpoint/:lat/:long", (req, res) => {
 
 app.put("/gis/addpolygon", (req, res) => {
     try {
-        put(req.body);
-        res.sendStatus(200);
+        feature = req.body;
+        if (!feature.type ||
+            !feature.properties ||
+            !feature.geometry ||
+            !feature.properties.name ||
+            !feature.geometry.type ||
+            !feature.geometry.coordinates ||
+            !Array.isArray(feature.geometry.coordinates) ||
+            !Array.isArray(feature.geometry.coordinates[0]) ||
+            !Array.isArray(feature.geometry.coordinates[0][0]) ||
+            !Array.isArray(feature.geometry.coordinates[0][1]) ||
+            !Array.isArray(feature.geometry.coordinates[0][2]) ||
+            !Array.isArray(feature.geometry.coordinates[0][3]) ||
+            !(feature.type === "Feature") ||
+            !(typeof feature.properties.name === 'string') ||
+            !(feature.geometry.type === "Polygon") ||
+            !(feature.geometry.coordinates.length === 1) ||
+            !(feature.geometry.coordinates[0].length === 4) ||
+            !(feature.geometry.coordinates[0][0].length === 2) ||
+            !(feature.geometry.coordinates[0][1].length === 2) ||
+            !(feature.geometry.coordinates[0][2].length === 2) ||
+            !(feature.geometry.coordinates[0][3].length === 2) ||
+            isNaN(feature.geometry.coordinates[0][0][0]) ||
+            isNaN(feature.geometry.coordinates[0][0][1]) ||
+            isNaN(feature.geometry.coordinates[0][1][0]) ||
+            isNaN(feature.geometry.coordinates[0][1][1]) ||
+            isNaN(feature.geometry.coordinates[0][2][0]) ||
+            isNaN(feature.geometry.coordinates[0][2][1]) ||
+            isNaN(feature.geometry.coordinates[0][3][0]) ||
+            isNaN(feature.geometry.coordinates[0][3][1])) {
+
+            res.sendStatus(400);
+        }
+        else {
+            put(feature);
+            res.sendStatus(200);
+        }
     } catch (error) {
         console.log(error);
         res.sendStatus(500);
     }
 })
 
-app.use((req, res) => {
-    res.send("welcome");
-})
+// app.use((req, res) => {
+//     res.send("welcome");
+// })
 
-// app.listen(port, () => console.log(`listening on port ${port}`));
+
 app.listen(process.env.PORT || port, function () {
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
 });

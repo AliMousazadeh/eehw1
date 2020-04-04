@@ -43,10 +43,6 @@ function get(lat, long) {
 
 function put(feature) {
     //validate
-    if (!feature.type ||
-        !feature.properties) {
-
-    }
     features.push(feature);
     writeFile("input.json", { type: "FeatureCollection", features: features });
 }
