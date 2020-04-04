@@ -70,10 +70,9 @@ app.put("/gis/addpolygon", (req, res) => {
     }
 })
 
-// app.use((req, res) => {
-//     res.send("welcome");
-// })
-
+app.use((req, res) => {
+    res.send("welcome");
+})
 
 app.listen(process.env.PORT || port, function () {
     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
