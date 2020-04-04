@@ -35,7 +35,9 @@ app.put("/gis/addpolygon", (req, res) => {
             !feature.geometry.type ||
             !feature.geometry.coordinates ||
             !Array.isArray(feature.geometry.coordinates) ||
+            !(feature.geometry.coordinates.length === 1) ||
             !Array.isArray(feature.geometry.coordinates[0]) ||
+            !(feature.geometry.coordinates[0].length === 4) ||
             !Array.isArray(feature.geometry.coordinates[0][0]) ||
             !Array.isArray(feature.geometry.coordinates[0][1]) ||
             !Array.isArray(feature.geometry.coordinates[0][2]) ||
@@ -43,8 +45,6 @@ app.put("/gis/addpolygon", (req, res) => {
             !(feature.type === "Feature") ||
             !(typeof feature.properties.name === 'string') ||
             !(feature.geometry.type === "Polygon") ||
-            !(feature.geometry.coordinates.length === 1) ||
-            !(feature.geometry.coordinates[0].length === 4) ||
             !(feature.geometry.coordinates[0][0].length === 2) ||
             !(feature.geometry.coordinates[0][1].length === 2) ||
             !(feature.geometry.coordinates[0][2].length === 2) ||
